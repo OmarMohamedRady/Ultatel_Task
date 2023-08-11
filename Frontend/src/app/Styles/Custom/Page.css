@@ -1,0 +1,24 @@
+.page-title {
+  padding: 20px 20px 30px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.page-title > span {
+  font-size: 24px;
+  font-weight: 700;
+  color: rgb(0, 0, 102);
+  padding: 0;
+  margin: 0;
+}
+.page-container {
+  background-color: #fbfbfb;
+  /* box-shadow: 8px 8px 8px 8px rgba(77, 74, 73, 0.2); */
+  box-shadow: 8px 8px 8px 8px rgba(33, 32, 32, 0.2);
+  border: 1px solid white;
+  border-radius: 8px;
+}
+
+.table-container {
+  animation: fedUP 1s;
+}
