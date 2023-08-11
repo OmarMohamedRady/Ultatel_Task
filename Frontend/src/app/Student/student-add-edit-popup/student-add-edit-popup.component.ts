@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./student-add-edit-popup.component.css'],
 })
 export class StudentAddEditPopupComponent {
+  constructor() {}
   closeModal() {}
 }
