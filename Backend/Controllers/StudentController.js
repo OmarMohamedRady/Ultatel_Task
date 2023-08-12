@@ -6,11 +6,8 @@ class StudentController {
   async GetAllStudents(req, res) {
     try {
       let AllStudentsData = await StudentModel.find({});
-      return res.status(200).json({
-        success: true,
-        message: "data retrieved successfully",
-        data: AllStudentsData,
-      });
+
+      return res.status(200).json(AllStudentsData);
     } catch (err) {
       return res.json({
         success: false,
@@ -26,19 +23,23 @@ class StudentController {
     try {
       let StudentData = req.body;
       console.log(StudentData);
-      return;
+      let currentDate = new Date();
+      let currentYear = currentDate.getFullYear();
+      // const date = new Date();
+      // console.log(date);
+      // return;
       const IsValid = StudentValidation(StudentData);
-      // if (!valid) {
-      //   return res.json({
-      //     success: false,
-      //     message: "validation error",
-      //   });
-      //   // console.log(StudentValidation.errors);
-      // }
-
-      CheckStudentValidation(IsValid, "validation error");
+      if (!IsValid) {
+        return res.json({
+          success: false,
+          message: StudentValidation.errors,
+        });
+        // console.log(StudentValidation.errors);
+      }
+      console.log("hiiii");
+      // CheckStudentValidation(IsValid, "validation error");
       let CheckStudent = await StudentModel.findOne({
-        email: StudentData.email,
+        Email: StudentData.Email,
       });
 
       if (CheckStudent) {
@@ -47,7 +48,9 @@ class StudentController {
           message: "student is already exist",
         });
       }
+      StudentData.Age = currentYear - StudentData.BirthDate.year;
       let NewStudent = new StudentModel(StudentData);
+
       await NewStudent.save();
       return res.status(201).json({
         success: true,
@@ -69,13 +72,13 @@ class StudentController {
       let StudentID = req.params.id;
       let StudentData = req.body;
       const IsValid = StudentValidation(StudentData);
-      // if (!valid) {
-      //   return res.json({
-      //     success: false,
-      //     message: "validation error",
-      //   });
-      // }
-      CheckStudentValidation(IsValid, "validation error");
+      if (!IsValid) {
+        return res.json({
+          success: false,
+          message: StudentValidation.errors,
+        });
+      }
+      // CheckStudentValidation(IsValid, "validation error");
       let CheckStudent = await StudentModel.findOne({ _id: StudentID });
       if (!CheckStudent) {
         return res.status(404).json({

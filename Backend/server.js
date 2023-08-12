@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const studentRoutes = require("./Routes/StudentRoutes");
@@ -11,6 +12,7 @@ const studentRoutes = require("./Routes/StudentRoutes");
 const app = express();
 const PORT = process.env.PORT || 7005;
 dotenv.config();
+app.use(cors());
 //#end region
 
 //#region Middlewares

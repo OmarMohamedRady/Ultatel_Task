@@ -21,31 +21,38 @@
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Gender</th>
+                <th scope="col">Age</th>
                 <th scope="col">Country</th>
-                <th scope="col">Date of Birth</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let country of countries">
-                <td scope="row">{{ country.FirstName }}</td>
+              <tr *ngFor="let row of studentList">
+                <td scope="row">{{ row.FirstName }}</td>
                 <td>
-                  {{ country.LastName }}
+                  {{ row.LastName }}
                 </td>
-                <td>{{ country.Email }}</td>
-                <td>{{ country.Gender }}</td>
-                <td>{{ country.Country }}</td>
-                <td>{{ country.DateOfBirth }}</td>
+                <td>{{ row.Email }}</td>
+                <td>{{ row.Gender }}</td>
+                <td>{{ row.Age }}</td>
+                <td>{{ row.Country }}</td>
+
                 <td>
                   <button
                     type="button"
                     class="btn btn-success"
-                    (click)="Actions.OpenAddEditStudent(country)"
+                    (click)="Actions.OpenAddEditStudent(row)"
                   >
                     <i class="fa fa-edit"></i>
                   </button>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="Actions.DeleteStudent(row)"
+                  >
                     <i class="fa fa-trash"></i>
                   </button>
                 </td>
@@ -54,13 +61,13 @@
           </table>
 
           <div class="d-flex justify-content-between p-2">
-            <ngb-pagination
+            <!-- <ngb-pagination
               [collectionSize]="collectionSize"
               [(page)]="page"
               [pageSize]="pageSize"
-              (pageChange)="refreshCountries()"
+              (pageChange)="refreshStudents()"
             >
-            </ngb-pagination>
+            </ngb-pagination> -->
           </div>
         </div>
       </div>

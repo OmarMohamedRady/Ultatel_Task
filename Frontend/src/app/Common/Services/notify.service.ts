@@ -35,4 +35,6 @@ export class NotifyService {
       timer: 3000,
     });
   }
+
+  // COnfirm(title: string, message:string)
 }

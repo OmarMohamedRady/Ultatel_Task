@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
 
 const StudentSchema = new mongoose.Schema({
-  firstName: { type: String, required: true, minlength: 3, maxlength: 20 },
-  lastName: { type: String, required: true, minlength: 3, maxlength: 20 },
-  email: { type: String, required: true, unique: true },
-  gender: { type: String, enum: ["male", "female"], required: true },
-  birthDate: { type: String, required: true },
-  country: { type: String, required: true },
+  FirstName: { type: String, required: true, minlength: 3, maxlength: 20 },
+  LastName: { type: String, required: true, minlength: 3, maxlength: 20 },
+  Email: { type: String, required: true, unique: true },
+  Gender: { type: String, enum: ["male", "female"], required: true },
+  BirthDate: {
+    type: { year: Number, month: Number, day: Number },
+    required: true,
+  },
+  Age: { type: Number, required: true },
+  Country: { type: String, required: true },
 });
 
 // StudentSchema.pre("save", function (next) {

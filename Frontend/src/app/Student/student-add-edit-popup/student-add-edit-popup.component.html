@@ -1,5 +1,6 @@
 <div class="modal-header">
-  <h5>AddNewStudent</h5>
+  <h5 *ngIf="StudentId == null">AddNewStudent</h5>
+  <h5 *ngIf="StudentId != null">EditStudent</h5>
   <button type="button" class="btn btn-light fs-3" (click)="closeModal()">
     <span>&times;</span>
   </button>
