@@ -3,7 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const path = require("path");
 const swaggerUi = require("swagger-ui-express");
 const bodyParser = require("body-parser");
 const studentRoutes = require("./Routes/StudentRoutes");
