@@ -25,39 +25,33 @@ class StudentController {
       console.log(StudentData);
       let currentDate = new Date();
       let currentYear = currentDate.getFullYear();
-      // const date = new Date();
-      // console.log(date);
-      // return;
+
       const IsValid = StudentValidation(StudentData);
       if (!IsValid) {
         return res.json({
           success: false,
           message: StudentValidation.errors,
         });
-        // console.log(StudentValidation.errors);
       }
-      console.log("hiiii");
-      // CheckStudentValidation(IsValid, "validation error");
+
       let CheckStudent = await StudentModel.findOne({
         Email: StudentData.Email,
       });
-
       if (CheckStudent) {
         return res.json({
           success: false,
           message: "student is already exist",
         });
       }
+
       StudentData.Age = currentYear - StudentData.BirthDate.year;
       let NewStudent = new StudentModel(StudentData);
-
       await NewStudent.save();
       return res.status(201).json({
         success: true,
         message: "student added successfully.",
       });
     } catch (err) {
-      // console.log(err)
       return res.status(400).json({
         success: false,
         message: err.message,
@@ -71,6 +65,7 @@ class StudentController {
     try {
       let StudentID = req.params.id;
       let StudentData = req.body;
+
       const IsValid = StudentValidation(StudentData);
       if (!IsValid) {
         return res.json({
@@ -78,7 +73,7 @@ class StudentController {
           message: StudentValidation.errors,
         });
       }
-      // CheckStudentValidation(IsValid, "validation error");
+
       let CheckStudent = await StudentModel.findOne({ _id: StudentID });
       if (!CheckStudent) {
         return res.status(404).json({
@@ -86,11 +81,11 @@ class StudentController {
           message: "student not found.",
         });
       }
+
       let UpdatedStudent = await StudentModel.findOneAndUpdate(
         { _id: StudentID },
         StudentData
       );
-      // console.log(req.body)
       return res.status(201).json({
         success: true,
         message: "student update successfully.",
@@ -125,15 +120,6 @@ class StudentController {
       return res.status(400).json({
         success: false,
         message: err.message,
-      });
-    }
-  }
-
-  CheckStudentValidation(IsValid, message) {
-    if (!IsValid) {
-      return res.json({
-        success: false,
-        message: message,
       });
     }
   }

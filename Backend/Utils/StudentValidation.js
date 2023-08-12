@@ -1,15 +1,6 @@
 const Ajv = require("ajv");
 const ajv = new Ajv();
 
-ajv.addFormat("date", {
-  type: "string",
-  validate: function (data) {
-    // Custom date format validation logic
-    return /\d{4}-\d{2}-\d{2}/.test(data);
-  },
-});
-ajv.addFormat("timestamp", /^[1-9]\d*$/);
-
 const StudentSchema = {
   type: "object",
   properties: {
@@ -27,9 +18,7 @@ const StudentSchema = {
     },
     Email: {
       type: "string",
-      pattern: "^[a-zA-Z0-9]+@{1}[a-zA-Z0-9]+(.com){1}$",
-      //   pattern: "^[w-]+(.[w-]+)*@([w-]+.)+[a-zA-Z]{2,7}$",
-      //   format: "email",
+      pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$",
     },
     BirthDate: {
       type: "object",

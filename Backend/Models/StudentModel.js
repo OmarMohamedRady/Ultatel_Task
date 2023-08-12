@@ -13,9 +13,4 @@ const StudentSchema = new mongoose.Schema({
   Country: { type: String, required: true },
 });
 
-// StudentSchema.pre("save", function (next) {
-//   // Set the time to midnight (00:00:00)
-//   this.birthDate.setUTCHours(0, 0, 0, 0);
-//   next();
-// });
 module.exports = mongoose.model("students", StudentSchema);
