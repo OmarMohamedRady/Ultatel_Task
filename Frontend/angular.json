@@ -20,7 +20,7 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/app/Styles/Styles.css"],
-            "scripts": []
+            "scripts": ["node_modules/sweetalert2/dist/sweetalert2.min.js"]
           },
           "configurations": {
             "production": {

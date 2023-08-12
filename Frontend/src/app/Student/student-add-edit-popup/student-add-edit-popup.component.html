@@ -5,92 +5,212 @@
   </button>
 </div>
 
-<form>
+<form (ngSubmit)="Save(frm)" #frm="ngForm">
   <div class="modal-body">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-12 col-md-6">
         <div class="form-group">
-          <label>First Name</label>
-          <div class="input-group mb-3">
+          <label
+            [ngClass]="{
+              'invalid-data':
+                (!Fname.valid && Fname.touched) ||
+                (!Fname.valid && frm.submitted)
+            }"
+            >First Name <span class="text-danger">*</span></label
+          >
+          <div class="input-group">
             <input
+              name="Fname"
               type="text"
-              name="FirstName"
               class="form-control"
+              [ngClass]="{
+                'invalid-input':
+                  (!Fname.valid && Fname.touched) ||
+                  (!Fname.valid && frm.submitted)
+              }"
               placeholder="First Name"
+              [(ngModel)]="FirstName"
+              #Fname="ngModel"
               required
+              pattern="[a-zA-Z]{3,20}"
             />
           </div>
+
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              (Fname.errors && Fname.errors['required'] && Fname.touched) ||
+              (Fname.errors && Fname.errors['required'] && frm.submitted)
+            "
+          >
+            Name is required.
+          </p>
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              (Fname.errors && Fname.errors['pattern'] && Fname.touched) ||
+              (Fname.errors && Fname.errors['pattern'] && frm.submitted)
+            "
+          >
+            Invalid Name Format
+          </p>
         </div>
       </div>
-      <div class="col-sm-6">
+
+      <div class="col-sm-12 col-md-6">
         <div class="form-group">
-          <label>Last Name</label>
-          <div class="input-group mb-3">
+          <label
+            [ngClass]="{
+              'invalid-data':
+                (!Lname.valid && Lname.touched) ||
+                (!Lname.valid && frm.submitted)
+            }"
+            >Last Name <span class="text-danger">*</span></label
+          >
+          <div class="input-group">
             <input
               type="text"
               name="LastName"
               class="form-control"
               placeholder="Last Name"
+              #Lname="ngModel"
+              [(ngModel)]="LastName"
+              [ngClass]="{
+                'invalid-input':
+                  (!Lname.valid && Lname.touched) ||
+                  (!Lname.valid && frm.submitted)
+              }"
               required
+              pattern="[a-zA-Z]{3,20}"
             />
           </div>
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              (Lname.errors && Lname.errors['required'] && Lname.touched) ||
+              (Lname.errors && Lname.errors['required'] && frm.submitted)
+            "
+          >
+            Name is required.
+          </p>
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              (Lname.errors && Lname.errors['pattern'] && Lname.touched) ||
+              (Lname.errors && Lname.errors['pattern'] && frm.submitted)
+            "
+          >
+            Invalid Name Format
+          </p>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
-          <label>Email</label>
-          <div class="input-group mb-3">
+          <label
+            [ngClass]="{
+              'invalid-data':
+                (!email.valid && email.touched) ||
+                (!email.valid && frm.submitted)
+            }"
+            >Email <span class="text-danger">*</span></label
+          >
+          <div class="input-group">
             <input
               type="email"
               name="email"
               class="form-control"
+              [ngClass]="{
+                'invalid-input':
+                  (!email.valid && email.touched) ||
+                  (!email.valid && frm.submitted)
+              }"
               placeholder="Email"
+              [(ngModel)]="Email"
+              #email="ngModel"
               required
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
             />
           </div>
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              (email.errors && email.errors['required'] && email.touched) ||
+              (email.errors && email.errors['required'] && frm.submitted)
+            "
+          >
+            Email is required.
+          </p>
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              (email.errors && email.errors['pattern'] && email.touched) ||
+              (email.errors && email.errors['pattern'] && frm.submitted)
+            "
+          >
+            Invalid EmailFormat
+          </p>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
-          <label> Gender</label>
-          <div class="form-check form-check-inline mb-3 mx-2">
+          <label> Gender <span class="text-danger">*</span></label>
+          <div
+            class="form-check form-check-inline mb-3 mx-2"
+            *ngFor="let gender of genders"
+          >
             <input
               class="form-check-input"
               type="radio"
               name="gender"
-              id="femaleGender"
-              value="female"
+              [value]="gender"
+              [(ngModel)]="Gender"
+              required
             />
-            <label>Female</label>
+            <label>{{ gender }}</label>
           </div>
-          <div class="form-check form-check-inline mb-3">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="gender"
-              id="maleGender"
-              value="male"
-            />
-            <label>Male</label>
-          </div>
+          <!-- <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              frm.controls['gender'] &&
+              frm.controls['gender'].touched &&
+              frm.controls['gender'].errors['required']
+            "
+          >
+            gender is required.
+          </p> -->
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-12 col-md-6">
         <div class="form-group">
-          <label>Birth Date</label>
-          <div class="input-group mb-3">
+          <label
+            [ngClass]="{
+              'invalid-data':
+                (!birth_date.valid && birth_date.touched) ||
+                (!birth_date.valid && frm.submitted)
+            }"
+            >Birth Date <span class="text-danger">*</span></label
+          >
+          <div class="input-group">
             <input
               class="form-control"
               placeholder="yyyy-mm-dd"
               name="dp"
               ngbDatepicker
               #d="ngbDatepicker"
+              [(ngModel)]="BirthDate"
+              [ngClass]="{
+                'invalid-input':
+                  (!birth_date.valid && birth_date.touched) ||
+                  (!birth_date.valid && frm.submitted)
+              }"
+              #birth_date="ngModel"
+              required
             />
             <button
               class="btn btn-outline-secondary bi bi-calendar3"
@@ -98,20 +218,63 @@
               type="button"
             ></button>
           </div>
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="
+              (!birth_date.valid && birth_date.touched) ||
+              (!birth_date.valid && frm.submitted)
+            "
+          >
+            Birth Date is required.
+          </p>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-12 col-md-6">
         <div class="form-group">
-          <label>Country</label>
-          <ng-select placeholder="Choose" notFoundText="NoData" name="country">
-            <ng-option>Egypt</ng-option>
+          <label
+            [ngClass]="{
+              'invalid-data':
+                (!country.valid && country.touched) ||
+                (!country.valid && frm.submitted)
+            }"
+            >Country <span class="text-danger">*</span></label
+          >
+          <ng-select
+            placeholder="Choose"
+            notFoundText="NoData"
+            name="country"
+            [(ngModel)]="Country"
+            [ngClass]="{
+              'invalid-input':
+                (!country.valid && country.touched) ||
+                (!country.valid && frm.submitted)
+            }"
+            #country="ngModel"
+            required
+          >
+            <ng-option *ngFor="let row of countries" [value]="row">
+              {{ row }}
+            </ng-option>
           </ng-select>
         </div>
+        <p
+          class="mb-3 invalid-message"
+          *ngIf="
+            (!country.valid && country.touched) ||
+            (!country.valid && frm.submitted)
+          "
+        >
+          Country is required.
+        </p>
       </div>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary"><span>Save</span></button>
-    <button type="submit" class="btn btn-secondary"><span>Cancel</span></button>
+    <button type="submit" class="btn btn-primary">
+      <i class="fa fa-save"></i><span class="d-inline-block mx-1">Save</span>
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">
+      <i class="fa fa-close"></i><span class="d-inline-block mx-1">Cancel</span>
+    </button>
   </div>
 </form>

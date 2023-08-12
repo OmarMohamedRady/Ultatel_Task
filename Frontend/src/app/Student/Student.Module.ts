@@ -8,7 +8,7 @@ import {
   NgbTypeaheadModule,
   NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { DecimalPipe, NgFor } from '@angular/common';
+import { DecimalPipe, NgFor, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -30,6 +30,7 @@ const routes: Routes = [
     NgbPaginationModule,
     NgbDatepickerModule,
     NgSelectModule,
+    CommonModule,
   ],
   providers: [],
 })

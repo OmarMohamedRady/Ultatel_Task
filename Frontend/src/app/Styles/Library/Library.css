@@ -1,4 +1,5 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
-/* @import "node_modules/@ng-select/ng-select/themes/default.theme.css"; */
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~sweetalert2/dist/sweetalert2.min.css";
