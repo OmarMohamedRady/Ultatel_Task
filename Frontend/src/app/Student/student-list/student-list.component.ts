@@ -6,58 +6,6 @@ import { HttpEndPoints } from 'src/app/Common/Settings/HttpEndPoints';
 import { HttpService } from 'src/app/Common/Services/http.service';
 import { NotifyService } from 'src/app/Common/Services/notify.service';
 
-interface Country {
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Gender: string;
-  Country: string;
-  DateOfBirth: string;
-}
-
-const COUNTRIES: Country[] = [
-  {
-    FirstName: 'omar',
-    LastName: 'mohamed',
-    Email: 'omar@gmail.com',
-    Gender: 'male',
-    Country: 'Egypt',
-    DateOfBirth: '3-10-1997',
-  },
-  {
-    FirstName: 'omar',
-    LastName: 'mohamed',
-    Email: 'omar@gmail.com',
-    Gender: 'male',
-    Country: 'Egypt',
-    DateOfBirth: '3-10-1997',
-  },
-  {
-    FirstName: 'omar',
-    LastName: 'mohamed',
-    Email: 'omar@gmail.com',
-    Gender: 'male',
-    Country: 'Egypt',
-    DateOfBirth: '3-10-1997',
-  },
-  {
-    FirstName: 'omar',
-    LastName: 'mohamed',
-    Email: 'omar@gmail.com',
-    Gender: 'male',
-    Country: 'Egypt',
-    DateOfBirth: '3-10-1997',
-  },
-  {
-    FirstName: 'omar',
-    LastName: 'mohamed',
-    Email: 'omar@gmail.com',
-    Gender: 'male',
-    Country: 'Egypt',
-    DateOfBirth: '3-10-1997',
-  },
-];
-
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
@@ -68,7 +16,6 @@ export class StudentListComponent {
   pageSize = 4;
   // collectionSize = COUNTRIES.length;
   collectionSize: any;
-  countries: Country[] = [];
   studentList: any;
   List: any;
 
@@ -80,19 +27,9 @@ export class StudentListComponent {
   ) {}
   ngOnInit() {
     this.GetAllStudents();
-    this.refreshCountries();
   }
   ngAfterViewChecked() {
     this.ChangeDetectorRef.detectChanges();
-  }
-  refreshCountries() {
-    this.countries = COUNTRIES.map((country, i) => ({
-      id: i + 1,
-      ...country,
-    })).slice(
-      (this.page - 1) * this.pageSize,
-      (this.page - 1) * this.pageSize + this.pageSize
-    );
   }
 
   refreshStudents() {
@@ -112,12 +49,55 @@ export class StudentListComponent {
       const modal = this.NgbModal.open(StudentAddEditPopupComponent, {
         size: 'lg',
       });
+
       modal.componentInstance.StudentId = row._id;
       modal.componentInstance.FirstName = row.FirstName;
       modal.componentInstance.LastName = row.LastName;
       modal.componentInstance.Email = row.Email;
+      modal.result.then((row) => {
+        this.GetAllStudents();
+        console.log(row);
+        if (row._id == null) {
+          // this.studentList.push(row);
+        } else {
+          // const index = this.studentList.findIndex(
+          //   (obj: any) => obj._id == row._id
+          // );
+          // this.studentList[index] = row;
+        }
+        // this.collectionSize = this.studentList.length;
+        // this.refreshStudents();
+      });
     },
-    DeleteStudent: (row: any) => {},
+    DeleteStudent: (row: any) => {
+      console.log(row);
+      this.NotifyService.COnfirm(
+        'Confirm Delete',
+        'Confirm Delete Message',
+        'Yes',
+        'No'
+      ).then((result) => {
+        if (result) {
+          let httpEndPoint = HttpEndPoints.Students.delete;
+          httpEndPoint = httpEndPoint.replace('{id}', row._id);
+          this.HttpService.Delete(httpEndPoint).subscribe(
+            (response) => {
+              // const index = this.studentList.findIndex(
+              //   (obj: any) => obj._id == row._id
+              // );
+              // this.studentList.splice(index, 1);
+              // this.collectionSize = this.studentList.length;
+              // this.refreshStudents();
+              this.GetAllStudents();
+              this.NotifyService.Success('Student Deleted Successfully');
+            },
+            (error) => {
+              this.NotifyService.ServerError('Something went Wrong');
+            }
+          );
+        }
+      });
+    },
   };
 
   GetAllStudents() {
@@ -127,6 +107,7 @@ export class StudentListComponent {
         console.log(response);
         this.studentList = response;
         this.collectionSize = this.studentList.length;
+        this.refreshStudents();
       },
       (error) => {
         this.NotifyService.ServerError('Something went Wrong');

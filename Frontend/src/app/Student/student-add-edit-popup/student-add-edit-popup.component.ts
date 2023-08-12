@@ -18,6 +18,7 @@ export class StudentAddEditPopupComponent implements OnInit {
   @Input() Email!: string;
   @Input() Gender!: string;
   @Input() Country!: string;
+
   BirthDate!: { year: number; month: number; day: number };
   genders = ['male', 'female'];
 
@@ -46,40 +47,32 @@ export class StudentAddEditPopupComponent implements OnInit {
     // );
 
     // console.log(dateStamp);
+    const student: StudentModel.StudentReqModel = {
+      FirstName: this.FirstName,
+      LastName: this.LastName,
+      Email: this.Email,
+      Gender: this.Gender,
+      Country: this.Country,
+      BirthDate: this.BirthDate,
+    };
     if (this.StudentId == null) {
-      const student: StudentModel.StudentReqModel = {
-        FirstName: this.FirstName,
-        LastName: this.LastName,
-        Email: this.Email,
-        Gender: this.Gender,
-        Country: this.Country,
-        BirthDate: this.BirthDate,
-      };
       const httpEndPoint = HttpEndPoints.Students.create;
       this.HttpService.Post(httpEndPoint, student).subscribe(
         (response) => {
           this.NotifyService.Success('Student Added Successfully');
-          this.NgbActiveModal.close();
+          this.NgbActiveModal.close(student);
         },
         (error) => {
           this.NotifyService.ServerError('Something went Wrong');
         }
       );
     } else {
-      const student: StudentModel.StudentReqModel = {
-        FirstName: this.FirstName,
-        LastName: this.LastName,
-        Email: this.Email,
-        Gender: this.Gender,
-        Country: this.Country,
-        BirthDate: this.BirthDate,
-      };
       let httpEndPoint = HttpEndPoints.Students.update;
       httpEndPoint = httpEndPoint.replace('{id}', this.StudentId);
       this.HttpService.Put(httpEndPoint, student).subscribe(
         (response) => {
           this.NotifyService.Success('Student Updated Successfully');
-          this.NgbActiveModal.close();
+          this.NgbActiveModal.close(student);
         },
         (error) => {
           this.NotifyService.ServerError('Something went Wrong');

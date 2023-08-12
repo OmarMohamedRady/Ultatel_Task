@@ -3,5 +3,6 @@ export class HttpEndPoints {
     getAll: 'students',
     create: 'students/create',
     update: 'students/update/{id}',
+    delete: 'students/delete/{id}',
   };
 }

@@ -20,4 +20,8 @@ export class HttpService {
     const httpEndPointUrl = this.Base_URL + httpEndPoint;
     return this.serverClient.put(httpEndPointUrl, model);
   }
+  Delete(httpEndPoint: string) {
+    const httpEndPointUrl = this.Base_URL + httpEndPoint;
+    return this.serverClient.delete(httpEndPointUrl);
+  }
 }

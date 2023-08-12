@@ -28,7 +28,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of studentList">
+              <tr *ngFor="let row of List">
                 <td scope="row">{{ row.FirstName }}</td>
                 <td>
                   {{ row.LastName }}
@@ -61,13 +61,13 @@
           </table>
 
           <div class="d-flex justify-content-between p-2">
-            <!-- <ngb-pagination
+            <ngb-pagination
               [collectionSize]="collectionSize"
               [(page)]="page"
               [pageSize]="pageSize"
               (pageChange)="refreshStudents()"
             >
-            </ngb-pagination> -->
+            </ngb-pagination>
           </div>
         </div>
       </div>
