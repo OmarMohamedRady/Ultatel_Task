@@ -25,6 +25,8 @@ class StudentController {
   async CreateNewStudent(req, res) {
     try {
       let StudentData = req.body;
+      console.log(StudentData);
+      return;
       const IsValid = StudentValidation(StudentData);
       // if (!valid) {
       //   return res.json({

@@ -5,13 +5,34 @@ import Swal from 'sweetalert2';
 })
 export class NotifyService {
   constructor() {}
+
+  Success(message: string, title: string = '') {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      text: message,
+      showConfirmButton: false,
+      timer: 3000,
+    });
+  }
+
   Error(message: string, title: string = '') {
     Swal.fire({
       position: 'top-end',
       icon: 'error',
       text: message,
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
+    });
+  }
+
+  ServerError(message: string, title: string = '') {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      text: message,
+      showConfirmButton: false,
+      timer: 3000,
     });
   }
 }
