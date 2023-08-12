@@ -8,7 +8,6 @@ import { HttpService } from 'src/app/Common/Services/http.service';
 @Component({
   selector: 'app-student-add-edit-popup',
   templateUrl: './student-add-edit-popup.component.html',
-  styleUrls: ['./student-add-edit-popup.component.css'],
 })
 export class StudentAddEditPopupComponent implements OnInit {
   countries = ['Egypt', 'USA', 'UAE'];
@@ -29,9 +28,7 @@ export class StudentAddEditPopupComponent implements OnInit {
     private ChangeDetectorRef: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.FirstName);
-  }
+  ngOnInit(): void {}
   ngAfterViewChecked() {
     this.ChangeDetectorRef.detectChanges();
   }
@@ -40,13 +37,6 @@ export class StudentAddEditPopupComponent implements OnInit {
       this.NotifyService.Error('Invalid Data');
       return;
     }
-    // const dateStamp = new Date(
-    //   this.BirthDate.year,
-    //   this.BirthDate.month - 1,
-    //   this.BirthDate.day
-    // );
-
-    // console.log(dateStamp);
     const student: StudentModel.StudentReqModel = {
       FirstName: this.FirstName,
       LastName: this.LastName,
@@ -55,6 +45,7 @@ export class StudentAddEditPopupComponent implements OnInit {
       Country: this.Country,
       BirthDate: this.BirthDate,
     };
+
     if (this.StudentId == null) {
       const httpEndPoint = HttpEndPoints.Students.create;
       this.HttpService.Post(httpEndPoint, student).subscribe(
@@ -78,8 +69,6 @@ export class StudentAddEditPopupComponent implements OnInit {
           this.NotifyService.ServerError('Something went Wrong');
         }
       );
-
-      console.log('edit');
     }
   }
   closeModal() {

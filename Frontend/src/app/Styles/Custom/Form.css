@@ -1,24 +1,3 @@
-/* .invalid-data {
-  label {
-    color: red;
-  }
-  .form-control {
-    border-color: red;
-  }
-  .invalid-message {
-    font-size: 15px;
-    display: block;
-    margin-top: 3px;
-    color: red;
-  }
-  .ng-select-container {
-    border-color: red;
-  }
-  .date-select {
-    border: 1px solid red;
-  }
-} */
-
 .invalid-data {
   color: red !important;
 }

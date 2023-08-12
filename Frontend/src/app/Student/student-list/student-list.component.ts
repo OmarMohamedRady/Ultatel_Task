@@ -1,7 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StudentAddEditPopupComponent } from '../student-add-edit-popup/student-add-edit-popup.component';
-import { StudentModel } from '../Student.Models';
 import { HttpEndPoints } from 'src/app/Common/Settings/HttpEndPoints';
 import { HttpService } from 'src/app/Common/Services/http.service';
 import { NotifyService } from 'src/app/Common/Services/notify.service';
@@ -9,12 +8,10 @@ import { NotifyService } from 'src/app/Common/Services/notify.service';
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css'],
 })
 export class StudentListComponent {
   page = 1;
   pageSize = 4;
-  // collectionSize = COUNTRIES.length;
   collectionSize: any;
   studentList: any;
   List: any;
@@ -56,17 +53,6 @@ export class StudentListComponent {
       modal.componentInstance.Email = row.Email;
       modal.result.then((row) => {
         this.GetAllStudents();
-        console.log(row);
-        if (row._id == null) {
-          // this.studentList.push(row);
-        } else {
-          // const index = this.studentList.findIndex(
-          //   (obj: any) => obj._id == row._id
-          // );
-          // this.studentList[index] = row;
-        }
-        // this.collectionSize = this.studentList.length;
-        // this.refreshStudents();
       });
     },
     DeleteStudent: (row: any) => {
@@ -82,12 +68,6 @@ export class StudentListComponent {
           httpEndPoint = httpEndPoint.replace('{id}', row._id);
           this.HttpService.Delete(httpEndPoint).subscribe(
             (response) => {
-              // const index = this.studentList.findIndex(
-              //   (obj: any) => obj._id == row._id
-              // );
-              // this.studentList.splice(index, 1);
-              // this.collectionSize = this.studentList.length;
-              // this.refreshStudents();
               this.GetAllStudents();
               this.NotifyService.Success('Student Deleted Successfully');
             },

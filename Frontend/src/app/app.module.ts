@@ -6,15 +6,22 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { StudentListComponent } from './Student/student-list/student-list.component';
-// import { StudentAddEditPopupComponent } from './Student/student-add-edit-popup/student-add-edit-popup.component';
+import { RouterModule, Routes } from '@angular/router';
+import { StudentListComponent } from 'src/app/Student/student-list/student-list.component';
+import { StudentAddEditPopupComponent } from 'src/app/Student/student-add-edit-popup/student-add-edit-popup.component';
+import { RoutePaths } from 'src/app/Common/Settings/RoutePaths';
+import {
+  NgbPaginationModule,
+  NgbTypeaheadModule,
+  NgbDatepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { DecimalPipe, NgFor, CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // StudentListComponent,
-    // StudentAddEditPopupComponent
+    StudentListComponent,
+    StudentAddEditPopupComponent,
   ],
   // NgbModule
   imports: [
@@ -24,6 +31,14 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DecimalPipe,
+    NgFor,
+    FormsModule,
+    NgbTypeaheadModule,
+    NgbPaginationModule,
+    NgbDatepickerModule,
+    NgSelectModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
