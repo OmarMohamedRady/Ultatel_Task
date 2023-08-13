@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { StudentModel } from 'src/app/Student/Student.Models';
+import { StudentModels } from 'src/app/Student/Student.Models';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,11 +12,11 @@ export class HttpService {
     const httpEndPointUrl = this.Base_URL + httpEndPoint;
     return this.serverClient.get(httpEndPointUrl);
   }
-  Post(httpEndPoint: string, model: StudentModel.StudentReqModel) {
+  Post(httpEndPoint: string, model: StudentModels.StudentReqModel) {
     const httpEndPointUrl = this.Base_URL + httpEndPoint;
     return this.serverClient.post(httpEndPointUrl, model);
   }
-  Put(httpEndPoint: string, model: StudentModel.StudentReqModel) {
+  Put(httpEndPoint: string, model: StudentModels.StudentReqModel) {
     const httpEndPointUrl = this.Base_URL + httpEndPoint;
     return this.serverClient.put(httpEndPointUrl, model);
   }

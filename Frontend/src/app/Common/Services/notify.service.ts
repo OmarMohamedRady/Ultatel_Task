@@ -26,16 +26,6 @@ export class NotifyService {
     });
   }
 
-  ServerError(message: string, title: string = '') {
-    Swal.fire({
-      position: 'top-end',
-      icon: 'error',
-      text: message,
-      showConfirmButton: false,
-      timer: 3000,
-    });
-  }
-
   COnfirm(
     title: string,
     message: string,

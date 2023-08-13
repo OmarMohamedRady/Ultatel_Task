@@ -9,7 +9,7 @@ const StudentSchema = new mongoose.Schema({
     type: { year: Number, month: Number, day: Number },
     required: true,
   },
-  Age: { type: Number, required: true },
+
   Country: { type: String, required: true },
 });
 

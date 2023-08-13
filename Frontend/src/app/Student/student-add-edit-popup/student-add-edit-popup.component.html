@@ -1,6 +1,6 @@
 <div class="modal-header">
-  <h5 *ngIf="StudentId == null">AddNewStudent</h5>
-  <h5 *ngIf="StudentId != null">EditStudent</h5>
+  <h5 *ngIf="Student._id == null">AddNewStudent</h5>
+  <h5 *ngIf="Student._id != null">EditStudent</h5>
   <button type="button" class="btn btn-light fs-3" (click)="closeModal()">
     <span>&times;</span>
   </button>
@@ -30,7 +30,7 @@
                   (!Fname.valid && frm.submitted)
               }"
               placeholder="First Name"
-              [(ngModel)]="FirstName"
+              [(ngModel)]="Student.FirstName"
               #Fname="ngModel"
               required
               pattern="[a-zA-Z]{3,20}"
@@ -75,7 +75,7 @@
               class="form-control"
               placeholder="Last Name"
               #Lname="ngModel"
-              [(ngModel)]="LastName"
+              [(ngModel)]="Student.LastName"
               [ngClass]="{
                 'invalid-input':
                   (!Lname.valid && Lname.touched) ||
@@ -121,6 +121,7 @@
             <input
               type="email"
               name="email"
+              [disabled]="Student._id != null"
               class="form-control"
               [ngClass]="{
                 'invalid-input':
@@ -128,7 +129,7 @@
                   (!email.valid && frm.submitted)
               }"
               placeholder="Email"
-              [(ngModel)]="Email"
+              [(ngModel)]="Student.Email"
               #email="ngModel"
               required
               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
@@ -159,20 +160,36 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label> Gender <span class="text-danger">*</span></label>
-          <div
-            class="form-check form-check-inline mb-3 mx-2"
-            *ngFor="let gender of genders"
-          >
+          <div class="form-check form-check-inline mb-3 mx-2">
             <input
               class="form-check-input"
               type="radio"
               name="gender"
-              [value]="gender"
-              [(ngModel)]="Gender"
+              value="male"
+              [(ngModel)]="Student.Gender"
+              #gen="ngModel"
               required
             />
-            <label>{{ gender }}</label>
+            <label>Male</label>
           </div>
+          <div class="form-check form-check-inline mx-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              value="female"
+              [(ngModel)]="Student.Gender"
+              #gen="ngModel"
+              required
+            />
+            <label>Female</label>
+          </div>
+          <p
+            class="mb-3 invalid-message"
+            *ngIf="(!gen.valid && gen.touched) || (!gen.valid && frm.submitted)"
+          >
+            Gender is required
+          </p>
         </div>
       </div>
     </div>
@@ -194,7 +211,7 @@
               name="dp"
               ngbDatepicker
               #d="ngbDatepicker"
-              [(ngModel)]="BirthDate"
+              [(ngModel)]="Student.BirthDate"
               [ngClass]="{
                 'invalid-input':
                   (!birth_date.valid && birth_date.touched) ||
@@ -234,7 +251,7 @@
             placeholder="Choose"
             notFoundText="NoData"
             name="country"
-            [(ngModel)]="Country"
+            [(ngModel)]="Student.Country"
             [ngClass]="{
               'invalid-input':
                 (!country.valid && country.touched) ||

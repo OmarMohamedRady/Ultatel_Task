@@ -1,9 +1,10 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StudentAddEditPopupComponent } from '../student-add-edit-popup/student-add-edit-popup.component';
 import { HttpEndPoints } from 'src/app/Common/Settings/HttpEndPoints';
 import { HttpService } from 'src/app/Common/Services/http.service';
 import { NotifyService } from 'src/app/Common/Services/notify.service';
+import { StudentModels } from '../Student.Models';
 
 @Component({
   selector: 'app-student-list',
@@ -19,20 +20,15 @@ export class StudentListComponent {
   constructor(
     private NgbModal: NgbModal,
     private HttpService: HttpService,
-    private NotifyService: NotifyService,
-    private ChangeDetectorRef: ChangeDetectorRef
+    private NotifyService: NotifyService
   ) {}
   ngOnInit() {
     this.GetAllStudents();
   }
-  ngAfterViewChecked() {
-    this.ChangeDetectorRef.detectChanges();
-  }
 
   refreshStudents() {
     this.List = this.studentList
-      .map((c: any, i: any) => ({
-        id: i + 1,
+      .map((c: any) => ({
         ...c,
       }))
       .slice(
@@ -42,15 +38,15 @@ export class StudentListComponent {
   }
 
   Actions = {
-    OpenAddEditStudent: (row: any = {}) => {
+    OpenAddEditStudent: (
+      row: StudentModels.StudentModel = new StudentModels.StudentModel()
+    ) => {
       const modal = this.NgbModal.open(StudentAddEditPopupComponent, {
         size: 'lg',
       });
-
-      modal.componentInstance.StudentId = row._id;
-      modal.componentInstance.FirstName = row.FirstName;
-      modal.componentInstance.LastName = row.LastName;
-      modal.componentInstance.Email = row.Email;
+      const student = Object.assign({}, row);
+      // const student = JSON.parse(JSON.stringify(row));
+      modal.componentInstance.Student = student;
       modal.result.then((row) => {
         this.GetAllStudents();
       });
@@ -72,7 +68,7 @@ export class StudentListComponent {
               this.NotifyService.Success('Student Deleted Successfully');
             },
             (error) => {
-              this.NotifyService.ServerError('Something went Wrong');
+              this.NotifyService.Error('Something went Wrong');
             }
           );
         }
@@ -80,17 +76,22 @@ export class StudentListComponent {
     },
   };
 
+  getStudentAge(year: number) {
+    const today = new Date();
+    const CurrentYear = +today.getFullYear();
+    return CurrentYear - year;
+  }
   GetAllStudents() {
     const httpEndPoint = HttpEndPoints.Students.getAll;
+    const BirthDate = new Date();
     this.HttpService.GetAll(httpEndPoint).subscribe(
       (response) => {
-        console.log(response);
         this.studentList = response;
         this.collectionSize = this.studentList.length;
         this.refreshStudents();
       },
       (error) => {
-        this.NotifyService.ServerError('Something went Wrong');
+        this.NotifyService.Error('Something went Wrong');
       }
     );
   }

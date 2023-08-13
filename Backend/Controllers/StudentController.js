@@ -22,10 +22,6 @@ class StudentController {
   async CreateNewStudent(req, res) {
     try {
       let StudentData = req.body;
-      console.log(StudentData);
-      let currentDate = new Date();
-      let currentYear = currentDate.getFullYear();
-
       const IsValid = StudentValidation(StudentData);
       if (!IsValid) {
         return res.json({
@@ -38,13 +34,9 @@ class StudentController {
         Email: StudentData.Email,
       });
       if (CheckStudent) {
-        return res.json({
-          success: false,
-          message: "student is already exist",
-        });
+        return res.json("student is already exist");
       }
 
-      StudentData.Age = currentYear - StudentData.BirthDate.year;
       let NewStudent = new StudentModel(StudentData);
       await NewStudent.save();
       return res.status(201).json({

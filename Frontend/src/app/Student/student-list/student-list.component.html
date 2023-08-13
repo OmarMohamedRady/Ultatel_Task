@@ -13,12 +13,11 @@
     <hr />
     <div class="row">
       <div class="col-sm-12">
-        <div class="table-container">
+        <div class="table-container table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+                <th scope="col">FUll Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Age</th>
@@ -29,13 +28,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let row of List">
-                <td scope="row">{{ row.FirstName }}</td>
-                <td>
-                  {{ row.LastName }}
-                </td>
+                <td scope="row">{{ row.FirstName + " " + row.LastName }}</td>
                 <td>{{ row.Email }}</td>
                 <td>{{ row.Gender }}</td>
-                <td>{{ row.Age }}</td>
+                <td>{{ getStudentAge(row.BirthDate.year) }}</td>
                 <td>{{ row.Country }}</td>
 
                 <td>
